@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aravind Sankar — Graphic Designer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --paper:#EDEAE1;
+    --paper-2:#E3DFD2;
+    --ink:#1A1A17;
+    --ink-soft:#4A4740;
+    --navy:#1E3A5F;
+    --red:#C1272D;
+    --gold:#B8892B;
+    --line:rgba(26,26,23,0.14);
+    --display:'Fraunces', serif;
+    --body:'Work Sans', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  /* crop marks */
+  .crop{position:absolute;width:18px;height:18px;pointer-events:none;}
+  .crop::before,.crop::after{content:"";position:absolute;background:var(--ink);}
+  .crop::before{width:100%;height:1px;top:50%;}
+  .crop::after{width:1px;height:100%;left:50%;}
+  .crop.tl{top:18px;left:18px;}
+  .crop.tr{top:18px;right:18px;}
+  .crop.bl{bottom:18px;left:18px;}
+  .crop.br{bottom:18px;right:18px;}
+
+  /* ===== NAV ===== */
+  header{position:sticky;top:0;z-index:100;background:rgba(237,234,225,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+  .logo{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.01em;}
+  .logo span{color:var(--red);}
+  nav.primary{display:flex;gap:30px;}
+  nav.primary a{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid transparent;padding-bottom:3px;transition:color .2s,border-color .2s;}
+  nav.primary a:hover{color:var(--ink);border-color:var(--red);}
+  .nav-cta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);padding:9px 16px;transition:background .2s,color .2s;}
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+  .nav-actions-group{display:flex;align-items:center;gap:10px;}
+  .nav-cta-outline{border-color:var(--line);color:var(--ink-soft);}
+  .nav-cta-outline:hover{background:transparent;border-color:var(--navy);color:var(--navy);}
+  @media(max-width:480px){.nav-actions-group{gap:6px;}.nav-cta{padding:9px 12px;font-size:10px;}}
+  @media(max-width:800px){nav.primary{display:none;}}
+
+  /* ===== HERO / COVER SHEET ===== */
+  .hero{position:relative;padding:90px 0 0;border-bottom:1px solid var(--line);overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:40px;align-items:end;}
+  .hero-text{padding-bottom:70px;}
+  .hero-meta{
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;gap:24px;flex-wrap:wrap;margin-bottom:40px;
+  }
+  .hero-meta span b{color:var(--ink);font-weight:600;}
+  .eyebrow{
+    font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);
+    margin-bottom:18px;display:flex;align-items:center;gap:10px;min-height:18px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--red);flex-shrink:0;}
+  .eyebrow .type-cursor{display:inline-block;width:2px;height:14px;background:var(--red);margin-left:2px;animation:caret 0.9s step-end infinite;}
+  @keyframes caret{50%{opacity:0;}}
+  h1.hero-name{
+    font-family:var(--display);font-weight:600;font-size:clamp(44px,7vw,92px);line-height:0.94;letter-spacing:-0.01em;margin-bottom:22px;
+  }
+  .hero-role{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(19px,2.2vw,26px);color:var(--navy);margin-bottom:26px;}
+  .hero-exp{font-family:var(--mono);font-weight:700;color:var(--ink);}
+  .hero-sub{font-size:16.5px;line-height:1.7;color:var(--ink-soft);max-width:600px;margin-bottom:34px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;padding:14px 24px;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,background .2s,color .2s;}
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--red);}
+  .btn-outline{border:1px solid var(--ink);}
+  .btn-outline:hover{border-color:var(--navy);color:var(--navy);}
+
+  .hero-portrait{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;}
+  .hero-portrait img{
+    width:100%;max-width:340px;height:auto;object-fit:contain;object-position:bottom;
+    filter:grayscale(0.06);
+  }
+  .hero-portrait::before{
+    content:"";position:absolute;top:8%;right:6%;bottom:0;width:78%;
+    background:var(--red);opacity:.9;z-index:0;
+  }
+  .hero-portrait img{position:relative;z-index:1;}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-text{padding-bottom:36px;}
+    .hero-portrait{order:-1;height:auto;padding-top:20px;}
+    .hero-portrait img{max-width:220px;margin:0 auto;}
+    .hero-portrait::before{right:14%;width:70%;}
+  }
+
+  /* ===== SWATCH STRIP ===== */
+  .swatch-strip{display:flex;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .swatch{flex:1;padding:14px 18px;border-right:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;}
+  .swatch:last-child{border-right:none;}
+  .swatch .chip{width:100%;height:34px;margin-bottom:10px;}
+  .swatch .name{color:var(--ink);font-weight:600;text-transform:uppercase;}
+
+  /* ===== LOGO MARQUEE ===== */
+  .logo-marquee{border-bottom:1px solid var(--line);overflow:hidden;background:var(--paper-2);}
+  .marquee-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);padding:14px 32px 0;}
+  .marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite;padding:14px 0 22px;}
+  .marquee-track:hover{animation-play-state:paused;}
+  .marquee-item{
+    font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.01em;
+    color:var(--ink-soft);opacity:.7;padding:0 44px;white-space:nowrap;border-right:1px solid var(--line);
+  }
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ===== SECTIONS ===== */
+  .section{padding:88px 0;position:relative;border-bottom:1px solid var(--line);}
+  .section:last-of-type{border-bottom:none;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:46px;gap:20px;flex-wrap:wrap;}
+  .section-head .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:block;}
+  .section-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.6vw,44px);letter-spacing:-0.01em;}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--ink-soft);}
+
+  /* ===== DOMAIN CARDS ===== */
+  .domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);}
+  @media(max-width:800px){.domain-grid{grid-template-columns:1fr;}}
+  .domain-card{background:var(--paper);padding:46px 40px;position:relative;}
+  .domain-mark{width:44px;height:4px;margin-bottom:26px;}
+  .domain-card h3{font-family:var(--display);font-weight:600;font-size:28px;margin-bottom:14px;}
+  .domain-card p{color:var(--ink-soft);line-height:1.7;font-size:15px;max-width:420px;margin-bottom:20px;}
+  .domain-list{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em;line-height:2;margin-bottom:26px;}
+  .domain-companies{border-top:1px solid var(--line);padding-top:20px;}
+  .dc-label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);opacity:.8;margin-bottom:12px;}
+  .dc-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .dc-tags span{font-family:var(--body);font-weight:600;font-size:12.5px;color:var(--ink);border:1px solid var(--line);padding:6px 12px;}
+
+  /* ===== SELECTED PROJECTS ===== */
+  .projects-section{background:var(--ink);color:var(--paper);}
+  .projects-section .section-head h2{color:var(--paper);}
+  .projects-section .eyebrow{color:#8f8b80;font-weight:600;letter-spacing:.18em;}
+  .projects-section .eyebrow::before{display:none;}
+  .view-all-dark{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border-bottom:1px solid var(--red);padding-bottom:3px;}
+  .view-all-dark:hover{color:var(--gold);border-color:var(--gold);}
+  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  @media(max-width:900px){.project-grid{grid-template-columns:1fr;}}
+  .project-card{background:#171613;border:1px solid rgba(237,234,225,0.1);}
+  .project-visual{
+    height:210px;background:#1d1c19;display:flex;align-items:center;justify-content:center;
+    padding:20px;text-align:center;border-bottom:1px solid rgba(237,234,225,0.1);
+  }
+  .project-visual span{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6f6b62;}
+  .project-visual img {
+    width: 100%;
+    height: 100%;
+  }
+  .project-body{padding:26px 24px 28px;}
+  .project-num{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--red);margin-bottom:14px;}
+  .project-title{font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:10px;}
+  .project-tags{font-size:13px;color:#a8a49a;}
+
+  /* ===== TOOLS ===== */
+  .tool-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  @media(max-width:800px){.tool-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:480px){.tool-grid{grid-template-columns:repeat(2,1fr);}}
+  .tool{background:var(--paper);padding:20px 14px;display:flex;flex-direction:column;gap:12px;min-height:112px;justify-content:space-between;transition:background .2s;}
+  .tool:hover{background:var(--paper-2);}
+  .tool-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .tool-icon{
+    width:30px;height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:0;color:var(--paper);
+  }
+  .tool .mono{font-family:var(--mono);font-size:9.5px;color:var(--ink-soft);}
+  .tool .name{font-family:var(--display);font-weight:600;font-size:14px;}
+
+  /* ===== TIMELINE ===== */
+  .timeline{display:flex;flex-direction:column;}
+  .tl-item{display:grid;grid-template-columns:160px 1fr;gap:30px;padding:34px 0;border-top:1px solid var(--line);}
+  .tl-item:last-child{border-bottom:1px solid var(--line);}
+  @media(max-width:700px){.tl-item{grid-template-columns:1fr;gap:10px;}}
+  .tl-date{font-family:var(--mono);font-size:12px;color:var(--red);letter-spacing:.05em;}
+  .tl-role{font-family:var(--display);font-weight:600;font-size:21px;margin-bottom:4px;}
+  .tl-org{font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;}
+  .tl-desc{color:var(--ink-soft);font-size:14.5px;line-height:1.75;max-width:640px;}
+  .tl-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+  .tl-tags span{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);padding:5px 10px;color:var(--ink-soft);}
+
+  /* ===== EDU / CERT ===== */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  @media(max-width:700px){.edu-grid{grid-template-columns:1fr;gap:40px;}}
+  .edu-item{border-left:2px solid var(--navy);padding-left:20px;margin-bottom:26px;}
+  .edu-item .deg{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:4px;}
+  .edu-item .school{font-size:13.5px;color:var(--ink-soft);margin-bottom:2px;}
+  .edu-item .yr{font-family:var(--mono);font-size:11px;color:var(--ink-soft);}
+  .cert-badge{border:1px solid var(--ink);padding:20px;display:flex;align-items:center;gap:16px;}
+  .cert-badge svg{width:30px;height:30px;color:var(--gold);flex-shrink:0;}
+  .cert-badge .t1{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;}
+  .cert-badge .t2{font-family:var(--display);font-weight:600;font-size:16px;}
+
+  /* ===== CONTACT / FOOTER ===== */
+  .contact{background:var(--ink);color:var(--paper);padding:90px 0 40px;position:relative;}
+  .contact .eyebrow{color:var(--gold);}
+  .contact .eyebrow::before{background:var(--gold);}
+  .contact h2{font-family:var(--display);font-weight:600;font-size:clamp(34px,5.4vw,64px);line-height:1.02;margin-bottom:30px;max-width:760px;}
+  .contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;padding-bottom:60px;border-bottom:1px solid rgba(237,234,225,0.16);}
+  @media(max-width:800px){.contact-grid{grid-template-columns:1fr;gap:36px;}}
+  .contact-links a{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 0;border-top:1px solid rgba(237,234,225,0.16);
+    font-family:var(--mono);font-size:13px;letter-spacing:.03em;
+  }
+  .contact-links a:last-child{border-bottom:1px solid rgba(237,234,225,0.16);}
+  .contact-links a span.label{color:#8f8b80;text-transform:uppercase;font-size:11px;}
+  .contact-links a:hover{color:var(--gold);}
+  .contact-note{font-size:14px;line-height:1.7;color:#b7b3a8;}
+  .contact-note b{color:var(--paper);font-family:var(--display);display:block;font-size:17px;margin-bottom:8px;}
+  .social-row{display:flex;gap:14px;margin-top:24px;}
+  .social-row a{
+    width:38px;height:38px;border:1px solid rgba(237,234,225,0.25);
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s,color .2s,transform .15s;
+  }
+  .social-row a svg{width:17px;height:17px;}
+  .social-row a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+  .social-row.social-row-light{margin-top:32px;}
+  .social-row.social-row-light a{border-color:var(--line);color:var(--ink-soft);}
+  .social-row.social-row-light a:hover{border-color:var(--navy);color:var(--navy);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:11px;color:#8f8b80;letter-spacing:.05em;}
+
+  /* ===== INQUIRY FORM ===== */
+  .form-block{padding:60px 0 60px;border-bottom:1px solid rgba(237,234,225,0.16);}
+  .form-block .form-head{margin-bottom:34px;max-width:560px;}
+  .form-block .form-head h3{font-family:var(--display);font-weight:600;font-size:24px;margin-bottom:10px;}
+  .form-block .form-head p{font-size:14px;line-height:1.6;color:#b7b3a8;}
+  .inquiry-form{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8f8b80;}
+  .field input,.field select,.field textarea{
+    background:var(--paper);color:var(--ink);border:1px solid rgba(237,234,225,0.2);
+    padding:13px 14px;font-family:var(--body);font-size:14px;border-radius:1px;
+  }
+  .field select{appearance:none;cursor:pointer;}
+  .field textarea{resize:vertical;min-height:120px;font-family:var(--body);}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .form-submit{
+    grid-column:1 / -1;justify-self:start;margin-top:6px;
+    font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;
+    background:var(--gold);color:var(--ink);padding:15px 28px;display:inline-flex;align-items:center;gap:10px;
+    transition:transform .15s,background .2s;
+  }
+  .form-submit:hover{transform:translateY(-2px);background:var(--paper);}
+  @media(max-width:700px){.inquiry-form{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <div class="logo">ARAVIND<span>.</span>SANKAR</div>
+    <nav class="primary">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+    </nav>
+    <div class="nav-actions-group">
+      <a href="Aravind_Sankar_Resume.pdf" download class="nav-cta nav-cta-outline">Resume ↓</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="eyebrow"><span id="typeTarget"></span><span class="type-cursor"></span></div>
+      <h1 class="hero-name">Aravind Sankar</h1>
+      <div class="hero-role"><span class="hero-exp">3 Yrs Experience</span> — Branding, print &amp; digital design for real estate &amp; corporate clients</div>
+      <p class="hero-sub">I build visual identities and campaign assets that hold up from a billboard to a business card — brochures, exhibition stalls, social creatives and interactive prototypes, shaped with the same eye for colour accuracy and typographic detail throughout.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Start a project →</a>
+      </div>
+      <div class="social-row social-row-light">
+        <a href="https://in.linkedin.com/in/aravind-sankar-2837141b9" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" aria-label="Behance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h6a2.5 2.5 0 0 1 0 5H2z"/><path d="M2 12h6.5a2.5 2.5 0 0 1 0 5H2z"/><path d="M15 14.5a3.5 3.5 0 0 0 6.8 1.2"/><path d="M14.8 13h7.1c0-2.8-1.6-4.5-3.9-4.5s-3.6 1.8-3.6 4"/><path d="M15 8h5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <img src="image/ajo.png" alt="Aravind Sankar's Portrait">
+    </div>
+  </div>
+</section>
+
+<div class="logo-marquee">
+  <div class="marquee-label">Companies &amp; organisations worked with</div>
+  <div class="marquee-track">
+    <span class="marquee-item">GTK Foundations</span>
+    <span class="marquee-item">CREDAI FairPro</span>
+    <span class="marquee-item">CREDAI Tamil Nadu — Dubai</span>
+    <span class="marquee-item">Maintec Technologies</span>
+    <span class="marquee-item">Sathyabama Institute</span>
+    <span class="marquee-item">Karpagam University</span>
+    <span class="marquee-item">GTK Foundations</span>
+    <span class="marquee-item">CREDAI FairPro</span>
+    <span class="marquee-item">CREDAI Tamil Nadu — Dubai</span>
+    <span class="marquee-item">Maintec Technologies</span>
+    <span class="marquee-item">Sathyabama Institute</span>
+    <span class="marquee-item">Karpagam University</span>
+  </div>
+</div>
+
+<!-- DOMAINS -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="tag">Domains</span><h2>Where the work lives</h2></div>
+      <span class="section-num">01 / 06</span>
+    </div>
+    <div class="domain-grid">
+      <div class="domain-card">
+        <div class="domain-mark" style="background:var(--gold);"></div>
+        <h3>Real Estate Marketing</h3>
+        <p>Brochures, villa-plot campaigns, exhibition stall design and site branding for property launches — built to perform at expos as much as on a landing page.</p>
+        <div class="domain-list">
+          BROCHURES &amp; FLYERS<br>
+          EXHIBITION STALL DESIGN<br>
+          OUTDOOR &amp; SITE BANNERS<br>
+          EVENT COLLATERAL — CREDAI FAIRPRO
+        </div>
+        <div class="domain-companies">
+          <span class="dc-label">Companies &amp; organisations worked with</span>
+          <div class="dc-tags"><span>GTK Foundations</span><span>CREDAI FairPro</span><span>CREDAI Tamil Nadu — Dubai</span></div>
+        </div>
+      </div>
+      <div class="domain-card">
+        <div class="domain-mark" style="background:var(--navy);"></div>
+        <h3>Corporate Branding</h3>
+        <p>Logos, brand guidelines and campaign systems designed to stay consistent from a pitch deck to a paid social carousel.</p>
+        <div class="domain-list">
+          LOGO &amp; VISUAL IDENTITY<br>
+          PITCH DECKS &amp; PRESENTATIONS<br>
+          SOCIAL &amp; DIGITAL CAMPAIGNS<br>
+          WEB WIREFRAMES &amp; PROTOTYPES
+        </div>
+        <div class="domain-companies">
+          <span class="dc-label">Companies &amp; organisations worked with</span>
+          <div class="dc-tags"><span>GTK Foundations</span><span>Maintec Technologies</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED PROJECTS -->
+<section class="section projects-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow" style="margin-bottom:10px;">Selected Projects</span></div>
+      <a href="projects.html" class="view-all-dark">View all work →</a>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <a href="#" target="_blank" rel="noopener">
+          <div class="project-visual"><img src="https://i.pinimg.com/1200x/11/f8/fe/11f8fe0e3c8ee69a7291016cd27d46ba.jpg" alt="Real Estate Brochures + Outdoor"></div>
+          <div class="project-body">
+            <div class="project-num">01</div>
+            <div class="project-title">Brochures</div>
+            <div class="project-tags">Print • Digital • Outdoor Advertising</div>
+          </div>
+        </a>
+      </div>
+      <div class="project-card">
+        <a href="#" target="_blank" rel="noopener">
+          <div class="project-visual"><img src="https://i.pinimg.com/1200x/11/f8/fe/11f8fe0e3c8ee69a7291016cd27d46ba.jpg" alt="CREDAI FairPro Stall Design"></div>
+          <div class="project-body">
+            <div class="project-num">02</div>
+            <div class="project-title">CREDAI FairPro Stall Design</div>
+            <div class="project-tags">Exhibition • Spatial Design • Branding</div>
+          </div>
+        </a>
+      </div>
+      <div class="project-card">
+        <a href="#" target="_blank" rel="noopener">
+          <div class="project-visual"><img src="https://i.pinimg.com/1200x/11/f8/fe/11f8fe0e3c8ee69a7291016cd27d46ba.jpg" alt="Villa Plot Promotion Series"></div>
+          <div class="project-body">
+            <div class="project-num">03</div>
+            <div class="project-title">Villa Plot Promotion Series</div>
+            <div class="project-tags">Social Media • Video • Newspaper Ads</div>
+          </div>
+        </a>
+      </div>
+      <div class="project-card">
+        <a href="#" target="_blank" rel="noopener">
+          <div class="project-visual"><img src="https://via.placeholder.com/400x210?text=New+Project+Image" alt="New Project"></div>
+          <div class="project-body">
+            <div class="project-num">04</div>
+            <div class="project-title">New Project Title</div>
+            <div class="project-tags">Design • Development • Marketing</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS / TOOLS -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="tag">Toolkit</span><h2 style="text-transform:uppercase;">Software &amp; skills</h2></div>
+      <span class="section-num">02 / 06</span>
+    </div>
+    <div class="tool-grid">
+      <div class="tool"><div class="tool-top"><span class="mono">01 · DESIGN</span><div class="tool-icon" style="background:var(--red);">Ps</div></div><span class="name">Photoshop</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">02 · DESIGN</span><div class="tool-icon" style="background:var(--red);">Ai</div></div><span class="name">Illustrator</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">03 · LAYOUT</span><div class="tool-icon" style="background:var(--navy);">Id</div></div><span class="name">InDesign</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">04 · VIDEO</span><div class="tool-icon" style="background:var(--gold);">Pr</div></div><span class="name">Premiere Pro</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">05 · VIDEO</span><div class="tool-icon" style="background:var(--gold);">Ae</div></div><span class="name">After Effects</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">06 · EDIT</span><div class="tool-icon" style="background:var(--gold);">Dr</div></div><span class="name">DaVinci Resolve</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">07 · UI/UX</span><div class="tool-icon" style="background:var(--ink);">Xd</div></div><span class="name">Adobe XD</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">08 · UI/UX</span><div class="tool-icon" style="background:var(--ink);">Fg</div></div><span class="name">Figma</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">09 · LAYOUT</span><div class="tool-icon" style="background:var(--navy);">Cd</div></div><span class="name">CorelDRAW</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">10 · 3D</span><div class="tool-icon" style="background:var(--navy);">Su</div></div><span class="name">SketchUp</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">11 · 3D</span><div class="tool-icon" style="background:var(--navy);">Vr</div></div><span class="name">V-Ray</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">12 · 3D</span><div class="tool-icon" style="background:var(--navy);">En</div></div><span class="name">Enscape</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">13 · 3D</span><div class="tool-icon" style="background:var(--navy);">Bl</div></div><span class="name">Blender</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">14 · CODE</span><div class="tool-icon" style="background:var(--red);">&lt;/&gt;</div></div><span class="name">HTML / CSS</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">15 · CODE</span><div class="tool-icon" style="background:var(--red);">Bs</div></div><span class="name">Bootstrap</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">16 · CODE</span><div class="tool-icon" style="background:var(--red);">Rx</div></div><span class="name">React (Basics)</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">17 · SYS</span><div class="tool-icon" style="background:var(--gold);">Pe</div></div><span class="name">Prompt Eng.</span></div>
+      <div class="tool"><div class="tool-top"><span class="mono">18 · SYS</span><div class="tool-icon" style="background:var(--gold);">M3</div></div><span class="name">M365 / PM</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="tag">Experience</span><h2>Work history</h2></div>
+      <span class="section-num">03 / 06</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2023 — PRESENT</div>
+        <div>
+          <div class="tl-role">Graphic Designer</div>
+          <div class="tl-org">GTK Foundations · Chennai</div>
+          <p class="tl-desc">Design real estate brochures, flyers, logos and marketing collateral aligned to corporate branding guidelines. Build wireframes and interactive prototypes in Figma and Adobe XD, produce promotional video content, and coordinate with print vendors to keep colour accuracy consistent across every output.</p>
+          <div class="tl-tags"><span>Brochures</span><span>Social Campaigns</span><span>Wireframing</span><span>Video</span><span>Vendor Coordination</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2026</div>
+        <div>
+          <div class="tl-role">Exhibition Stall Designer</div>
+          <div class="tl-org">CREDAI Tamil Nadu Dubai FairPro &amp; CREDAI FairPro — Chennai's Premier Property Expo</div>
+          <p class="tl-desc">Conceptualised and designed exhibition stall layouts for villa-plot promotion, developed print and digital creatives aligned with brand identity, and coordinated with vendors on flex, hoardings and display production to improve visitor engagement.</p>
+          <div class="tl-tags"><span>Stall Design</span><span>Print Production</span><span>Brand Identity</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2022 — 2023</div>
+        <div>
+          <div class="tl-role">HR Recruiter</div>
+          <div class="tl-org">Maintec Technologies Pvt Ltd · Bangalore</div>
+          <p class="tl-desc">Managed end-to-end recruitment for IT and non-IT roles — sourcing, screening, interview coordination and onboarding — while maintaining recruitment trackers and supporting employee relations initiatives.</p>
+          <div class="tl-tags"><span>Recruitment</span><span>Onboarding</span><span>HR Operations</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="tag">Background</span><h2>Education &amp; certification</h2></div>
+      <span class="section-num">04 / 06</span>
+    </div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-item">
+          <div class="deg">MBA — Marketing &amp; HR</div>
+          <div class="school">Sathyabama Institute of Science and Technology</div>
+          <div class="yr">2019 — 2021</div>
+        </div>
+        <div class="edu-item">
+          <div class="deg">B.Com</div>
+          <div class="school">Karpagam University</div>
+          <div class="yr">2016 — 2019</div>
+        </div>
+      </div>
+      <div>
+        <div class="cert-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="5"/><path d="M8 13l-2 8 6-3 6 3-2-8"/></svg>
+          <div>
+            <div class="t1">Certification</div>
+            <div class="t2">UI/UX Design — Figma &amp; Adobe XD</div>
+          </div>
+        </div>
+        <p style="margin-top:20px;color:var(--ink-soft);font-size:13.5px;line-height:1.7;">Languages — Tamil, English. Comfortable managing multi-project timelines with Microsoft 365 alongside day-to-day design production.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 / 06 · Let's talk</div>
+    <h2>Have a brief that needs a<br>clear, considered identity?</h2>
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a href="mailto:aravindssa12@gmail.com"><span class="label">Email</span> aravindssa12@gmail.com →</a>
+        <a href="tel:+917904562723"><span class="label">Phone</span> +91 79045 62723 →</a>
+        <a href="https://in.linkedin.com/in/aravind-sankar-2837141b9" target="_blank" rel="noopener"><span class="label">LinkedIn</span> Aravind Sankar →</a>
+      </div>
+      <div class="contact-note">
+        <b>Based in Chennai, open to remote &amp; on-site work</b>
+        Real estate marketing, corporate branding, print production and UI/UX prototyping — reach out with your timeline and I'll get back within a day.
+        <div class="social-row">
+          <a href="https://in.linkedin.com/in/aravind-sankar-2837141b9" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h6a2.5 2.5 0 0 1 0 5H2z"/><path d="M2 12h6.5a2.5 2.5 0 0 1 0 5H2z"/><path d="M15 14.5a3.5 3.5 0 0 0 6.8 1.2"/><path d="M14.8 13h7.1c0-2.8-1.6-4.5-3.9-4.5s-3.6 1.8-3.6 4"/><path d="M15 8h5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-block">
+      <div class="form-head">
+        <h3>Send a Project Inquiry or Hiring Message</h3>
+        <p>Fill in your project requirements below to receive a custom design quote or schedule an interview.</p>
+      </div>
+      <form class="inquiry-form" id="inquiryForm">
+        <div class="field">
+          <label for="fName">Your Name *</label>
+          <input type="text" id="fName" name="name" required>
+        </div>
+        <div class="field">
+          <label for="fEmail">Your Email *</label>
+          <input type="email" id="fEmail" name="email" required>
+        </div>
+        <div class="field">
+          <label for="fPhone">Phone Number (Optional)</label>
+          <input type="tel" id="fPhone" name="phone">
+        </div>
+        <div class="field">
+          <label for="fType">Project / Engagement Type</label>
+          <select id="fType" name="engagement">
+            <option>Real Estate Marketing Campaign</option>
+            <option>Exhibition Stall Design (CREDAI)</option>
+            <option>UI/UX Wireframes &amp; Mobile Prototype</option>
+            <option>Corporate Visual Identity &amp; Logos</option>
+            <option>Video Editing &amp; Motion Graphics</option>
+            <option>Full-Time Graphic Designer Hiring</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="fMsg">Project Details or Message *</label>
+          <textarea id="fMsg" name="message" required placeholder="Tell me about your timeline, scope and budget..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message to Aravind Sankar →</button>
+      </form>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 ARAVIND SANKAR — GRAPHIC DESIGNER</span>
+      <span>DESIGNED &amp; SET IN CHENNAI</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Typewriter effect for the eyebrow role line
+  (function(){
+    const target = document.getElementById('typeTarget');
+    const phrases = ['Graphic Designer', 'Video Editor', '2D Artist', 'UI/UX Designer'];
+    let pIndex = 0, cIndex = 0, deleting = false;
+
+    function tick(){
+      const current = phrases[pIndex];
+      if(!deleting){
+        cIndex++;
+        target.textContent = current.slice(0, cIndex);
+        if(cIndex === current.length){
+          deleting = true;
+          setTimeout(tick, 1400);
+          return;
+        }
+      } else {
+        cIndex--;
+        target.textContent = current.slice(0, cIndex);
+        if(cIndex === 0){
+          deleting = false;
+          pIndex = (pIndex + 1) % phrases.length;
+        }
+      }
+      setTimeout(tick, deleting ? 40 : 75);
+    }
+    tick();
+  })();
+
+  // Inquiry form -> opens a pre-filled email to Aravind
+  document.getElementById('inquiryForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = this.name.value.trim();
+    const email = this.email.value.trim();
+    const phone = this.phone.value.trim();
+    const type = this.engagement.value;
+    const message = this.message.value.trim();
+
+    const subject = 'Project Inquiry — ' + type;
+    const body =
+      'Name: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Phone: ' + (phone || '-') + '\n' +
+      'Engagement Type: ' + type + '\n\n' +
+      'Message:\n' + message;
+
+    const mailto = 'mailto:aravindssa12@gmail.com'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+
+    window.location.href = mailto;
+
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Opening your email app...';
+    setTimeout(()=>{ btn.textContent = 'Send Message to Aravind Sankar →'; }, 3500);
+  });
+</script>
+</body>
+</html>
